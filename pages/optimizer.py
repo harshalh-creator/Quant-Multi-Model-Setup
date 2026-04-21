@@ -1,6 +1,7 @@
 """pages/optimizer.py — Portfolio Optimization with live data"""
 
 import streamlit as st
+from engine import DataFetcher, Indicators, Strategies
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
