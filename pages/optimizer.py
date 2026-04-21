@@ -187,7 +187,7 @@ def show():
 
     with col4:
         st.markdown("### Portfolio Cumulative Return")
-        bench = fetch_index("^NSEI", period)
+        bench = DataFetcher.get_stock("^NSEI", period)
         bench_ret = bench.pct_change().dropna()
         bench_cum = (bench_ret + 1).cumprod()
         bench_cum = bench_cum / bench_cum.iloc[0]
