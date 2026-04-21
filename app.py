@@ -1,10 +1,13 @@
 """
-Quant Finance Platform — Main Entry Point
-==========================================
-Live NSE/BSE data via yfinance + advanced quant analytics
+Quant Finance Platform — Main Entry Point (Fixed for Streamlit Cloud)
 """
 
 import streamlit as st
+import importlib
+import sys
+import os
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 st.set_page_config(
     page_title="Quant Finance Platform",
@@ -77,22 +80,25 @@ with st.sidebar:
     st.caption("Data: Yahoo Finance (yfinance)")
     st.caption("© 2025 Quant Finance Platform")
 
-# --- Route to pages ---
+def load_page(module_path):
+    """Dynamically load a page module and call show()."""
+    try:
+        mod = importlib.import_module(module_path)
+        mod.show()
+    except Exception as e:
+        st.error(f"Error loading page: {e}")
+        st.exception(e)
+
+
 if page == "🏠 Dashboard":
-    from pages import dashboard
-    dashboard.show()
+    load_page("pages.dashboard")
 elif page == "⚖️ Portfolio Optimizer":
-    from pages import optimizer
-    optimizer.show()
+    load_page("pages.optimizer")
 elif page == "🎲 Monte Carlo Simulator":
-    from pages import montecarlo
-    montecarlo.show()
+    load_page("pages.montecarlo")
 elif page == "🔭 Regime Detection":
-    from pages import regime
-    regime.show()
+    load_page("pages.regime")
 elif page == "🔬 Factor Screener":
-    from pages import factor_screener
-    factor_screener.show()
+    load_page("pages.factor_screener")
 elif page == "⚠️ Risk Analytics":
-    from pages import risk_analytics
-    risk_analytics.show()
+    load_page("pages.risk_analytics")
